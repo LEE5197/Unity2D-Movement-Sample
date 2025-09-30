@@ -17,21 +17,21 @@ public class BetterJumping : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (!move.isDashing&&!move.isClimbing)
         {
             if (rigid.velocity.y < 0)
             {
-                rigid.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
+                rigid.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.fixedDeltaTime;
             }
             else if (rigid.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
             {
-                rigid.velocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
+                rigid.velocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.fixedDeltaTime;
             }
             else if (rigid.velocity.y > 0 && Input.GetKey(KeyCode.Space))
             {
-                rigid.velocity += Vector2.up * Physics2D.gravity.y * highJumpMultiplier * Time.deltaTime;
+                rigid.velocity += Vector2.up * Physics2D.gravity.y * highJumpMultiplier * Time.fixedDeltaTime;
             }
         }
     }

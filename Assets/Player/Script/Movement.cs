@@ -15,6 +15,9 @@ public class Movement : MonoBehaviour
     public bool isClimbing = false;
     public bool isWallJumping = false;
     // Start is called before the first frame update
+
+    private float xInput = 0f;
+    private float yInput = 0f;
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -33,6 +36,9 @@ public class Movement : MonoBehaviour
         {
             StartCoroutine(dash());
         }
+
+        xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
@@ -51,8 +57,7 @@ public class Movement : MonoBehaviour
 
     void move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        Vector2 curVector = new Vector2(x * speed, rigid.velocity.y);
+        Vector2 curVector = new Vector2(xInput * speed, rigid.velocity.y);
 
         rigid.velocity = Vector2.Lerp(rigid.velocity, curVector, 10.0f * Time.deltaTime);
     }
@@ -105,16 +110,15 @@ public class Movement : MonoBehaviour
 
     void climbing()
     {
-        float y = Input.GetAxisRaw("Vertical");
         if (!isWallJumping)
         {
-            if (y == 0)
+            if (yInput == 0)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
             }
             else
             {
-                rigid.velocity = new Vector2(rigid.velocity.x, y * speed * 0.5f);
+                rigid.velocity = new Vector2(rigid.velocity.x, yInput * speed * 0.5f);
             }
         }
     }
