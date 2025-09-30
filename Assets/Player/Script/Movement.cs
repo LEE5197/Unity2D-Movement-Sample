@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     public bool isDashing = false;
     public bool isClimbing = false;
     public bool isWallJumping = false;
+    public int numberOfGravityCore = 0;
     // Start is called before the first frame update
 
     private float xInput = 0f;

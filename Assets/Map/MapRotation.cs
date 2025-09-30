@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class MapRotator : MonoBehaviour
 {
+    Movement player;
     public Transform playerTransform;
-    public float rotationSpeed = 90f;
+    public float rotationSpeed = 180f;
     private bool isRotating = false;
 
+    private void Awake()
+    {
+        player = playerTransform.GetComponent<Movement>();
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && !isRotating)
+        if (Input.GetKeyDown(KeyCode.Q) && !isRotating && player.numberOfGravityCore > 0)
         {
             StartCoroutine(RotateMap(90f));
+            player.numberOfGravityCore--;
         }
-        if (Input.GetKeyDown(KeyCode.E) && !isRotating)
+        if (Input.GetKeyDown(KeyCode.E) && !isRotating && player.numberOfGravityCore > 0)
         {
             StartCoroutine(RotateMap(-90f));
+            player.numberOfGravityCore--;
         }
     }
 
